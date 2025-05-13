@@ -44,7 +44,7 @@ namespace HelloMvs.Controllers
                 sonuc = _context.SaveChanges();
             }
 
-            // Ajax isteği olup olmadığını kontrol et
+            
             if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
             {
                 if (sonuc > 0)
@@ -58,7 +58,7 @@ namespace HelloMvs.Controllers
             }
             else
             {
-                // Normal form gönderiminde eski davranışı koru
+               
                 if (sonuc > 0)
                 {
                     TempData["sonuc"] = true;
@@ -76,7 +76,7 @@ namespace HelloMvs.Controllers
         {
             var ogr = _context.Ogrenciler.Find(id);
 
-            // Ajax isteği kontrolü
+           
             if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
             {
                 return PartialView("_OgrenciDetayModal", ogr);
@@ -92,12 +92,12 @@ namespace HelloMvs.Controllers
             _context.Entry(ogr).State = EntityState.Modified;
             int sonuc = _context.SaveChanges();
 
-            // Ajax isteği kontrolü
+            
             if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
             {
                 if (sonuc > 0)
                 {
-                    // Güncel tabloyu döndür
+                    
                     var ogrenciler = _context.Ogrenciler.ToList();
                     var tableHtml = await this.RenderViewToStringAsync("_OgrenciTabloPartial", ogrenciler, true);
 
@@ -129,12 +129,12 @@ namespace HelloMvs.Controllers
                 _context.Ogrenciler.Remove(ogr);
                 int sonuc = _context.SaveChanges();
 
-                // Ajax isteği kontrolü
+               
                 if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
                 {
                     if (sonuc > 0)
                     {
-                        // Güncel tabloyu döndür
+                        
                         var ogrenciler = _context.Ogrenciler.ToList();
                         var tableHtml = await this.RenderViewToStringAsync("_OgrenciTabloPartial", ogrenciler, true);
 
@@ -156,6 +156,6 @@ namespace HelloMvs.Controllers
             return RedirectToAction("OgrenciListe");
         }
 
-        // Helper metodu artık Extensions içinde
+       
     }
 }
