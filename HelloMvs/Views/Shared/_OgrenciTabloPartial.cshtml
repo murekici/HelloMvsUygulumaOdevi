@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Ogrenci>
+
+<div id="ogrenciTablosu">
+    <table class="table" border="1">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Ad</th>
+                <th scope="col">Soyad</th>
+                <th scope="col">İşlemler</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            @foreach (var ogr in Model)
+            {
+                <tr>
+                    <td>@ogr.OgrenciId</td>
+                    <td>@ogr.Ad</td>
+                    <td>@ogr.Soyad</td>
+                    <td>
+                        <a href="/Ogrenci/OgrenciDetay/@ogr.OgrenciId" class="btn btn-info btn-sm ajax-detail">Detay</a>
+                        <a href="/Ogrenci/OgrenciSil/@ogr.OgrenciId" class="btn btn-danger btn-sm ajax-delete">Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,23 @@
+﻿@model Ogrenci
+
+@{
+    ViewData["Title"] = "Öğrenci Ekle";
+}
+
+<div id="alertContainer"></div>
+
+<h1>Öğrenci Ekle</h1>
+
+<form class="ajax-form" asp-action="OgrenciEkle" asp-controller="Ogrenci" method="post">
+    @Html.AntiForgeryToken()
+    <div class="mb-3">
+        <label class="form-label" asp-for="Ad">Ad</label>
+        <input type="text" class="form-control" asp-for="Ad">
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Soyad">Soyad</label>
+        <input type="text" class="form-control" asp-for="Soyad">
+    </div>
+    <button type="submit" class="btn btn-success">Kaydet</button>
+    <a asp-action="OgrenciListe" asp-controller="Ogrenci" class="btn btn-secondary">Listeye Dön</a>
+</form>

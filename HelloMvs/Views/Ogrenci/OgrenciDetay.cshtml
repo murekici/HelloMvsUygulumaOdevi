@@ -1,0 +1,68 @@
+﻿@model HelloMvs.Models.Ogrenci
+@{
+    ViewData["Title"] = "Öğrenci Detay";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div id="message"></div>
+<form id="ogrenciForm">
+    <input type="hidden" id="OgrenciId" value="@Model.OgrenciId" />
+    <div class="mb-3">
+        <label for="Ad" class="form-label">Ad</label>
+        <input type="text" class="form-control" id="Ad" name="Ad" />
+    </div>
+    <div class="mb-3">
+        <label for="Soyad" class="form-label">Soyad</label>
+        <input type="text" class="form-control" id="Soyad" name="Soyad" />
+    </div>
+    <button type="submit" class="btn btn-success">Kaydet</button>
+    <a asp-action="Index" asp-controller="Ogrenci" class="btn btn-secondary ms-2">Geri Dön</a>
+</form>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function () {
+            var id = $('#OgrenciId').val();
+            $.ajax({
+                url: '/ogrenci/get/' + id,
+                type: 'GET',
+                dataType: 'json'
+            }).done(function (res) {
+                if (res.success) {
+                    $('#Ad').val(res.data.ad);
+                    $('#Soyad').val(res.data.soyad);
+                } else {
+                    $('#message').html('<div class="alert alert-danger">' + res.error + '</div>');
+                }
+            }).fail(function () {
+                $('#message').html('<div class="alert alert-danger">Veri yüklenemedi.</div>');
+            });
+
+            $('#ogrenciForm').submit(function (e) {
+                e.preventDefault();
+                var model = {
+                    ogrenciId: parseInt(id),
+                    ad: $('#Ad').val(),
+                    soyad: $('#Soyad').val()
+                };
+                $.ajax({
+                    url: '/ogrenci/update/' + id,
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify(model),
+                    dataType: 'json'
+                }).done(function (res) {
+                    if (res.success) {
+                        $('#message').html('<div class="alert alert-success">Güncelleme başarılı!</div>');
+                    } else {
+                        var msg = res.errors ? res.errors.join('<br/>') : res.error;
+                        $('#message').html('<div class="alert alert-danger">' + msg + '</div>');
+                    }
+                }).fail(function () {
+                    $('#message').html('<div class="alert alert-danger">Sunucu hatası.</div>');
+                });
+            });
+        });
+    </script>
+}

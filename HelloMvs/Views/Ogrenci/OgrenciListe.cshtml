@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Ogrenci>
+
+@{
+    Layout = "_Layout";
+}
+<form id="antiForgeryForm" style="display:none">
+    @Html.AntiForgeryToken()
+</form>
+
+<div id="alertContainer"></div>
+
+<h3>Öğrenci Listesi</h3>
+
+<div class="mb-4">
+    <a href="/Ogrenci/OgrenciEkle" class="btn btn-primary">Yeni Öğrenci Ekle</a>
+</div>
+
+<ul class="list-group mb-4">
+    @foreach (var ogr in Model)
+    {
+        <li class="list-group-item">@ogr.Ad @ogr.Soyad</li>
+    }
+</ul>
+
+<h3>Öğrenci Listesi-Tablo</h3>
+
+
+@await Html.PartialAsync("_OgrenciTabloPartial", Model)
+
+
+<div class="modal fade" id="detayModal" tabindex="-1" aria-labelledby="detayModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detayModalLabel">Öğrenci Detayları</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="detayModalBody">
+                
+            </div>
+        </div>
+    </div>
+</div>
