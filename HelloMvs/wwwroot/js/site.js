@@ -1,6 +1,6 @@
-﻿// AJAX Form gönderimi için ortak fonksiyonlar
+
 $(document).ready(function () {
-    // Form submit olaylarının yakalanması
+   
     $(document).on('submit', '.ajax-form', function (e) {
         e.preventDefault();
 
@@ -18,24 +18,24 @@ $(document).ready(function () {
             },
             success: function (response) {
                 if (response.success) {
-                    // Başarılı işlem sonrası
+                    
                     if (response.message) {
                         showAlert('success', response.message);
                     }
 
-                    // Yönlendirme varsa
+                   
                     if (response.redirectUrl) {
                         setTimeout(function () {
                             window.location.href = response.redirectUrl;
                         }, 1500);
                     }
 
-                    // Tablo güncellemesi gerekiyorsa
+                   
                     if (response.updateTable) {
                         $('#ogrenciTablosu').html(response.tableHtml);
                     }
                 } else {
-                    // Hata durumunda
+                   
                     showAlert('danger', response.message || 'İşlem sırasında bir hata oluştu.');
                 }
             },
@@ -45,7 +45,7 @@ $(document).ready(function () {
         });
     });
 
-    // Öğrenci silme işlemi
+   
     $(document).on('click', '.ajax-delete', function (e) {
         e.preventDefault();
 
@@ -63,7 +63,7 @@ $(document).ready(function () {
                     if (response.success) {
                         showAlert('success', response.message);
 
-                        // Tablo güncellemesi
+                       
                         if (response.updateTable) {
                             $('#ogrenciTablosu').html(response.tableHtml);
                         }
@@ -78,7 +78,7 @@ $(document).ready(function () {
         }
     });
 
-    // Detay görüntüleme (modal ile)
+   
     $(document).on('click', '.ajax-detail', function (e) {
         e.preventDefault();
 
@@ -98,14 +98,14 @@ $(document).ready(function () {
     });
 });
 
-// Alert mesajları gösterme fonksiyonu
+
 function showAlert(type, message) {
     var alertDiv = $('<div class="alert alert-' + type + ' alert-dismissible fade show" role="alert">' +
         message +
         '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
         '</div>');
 
-    // Sayfada önceden tanımlanmış alert container var mı kontrol et
+   
     if ($('#alertContainer').length) {
         $('#alertContainer').html(alertDiv);
     } else {
@@ -113,7 +113,7 @@ function showAlert(type, message) {
         $('.container:first').prepend(alertDiv);
     }
 
-    // 5 saniye sonra otomatik kapat
+  
     setTimeout(function () {
         alertDiv.alert('close');
     }, 5000);
