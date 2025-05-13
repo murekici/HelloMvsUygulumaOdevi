@@ -1,9 +1,6 @@
 ﻿namespace HelloMvs.Models
 {
-    /// <summary>
-    /// Temel Öğrenci modeli.
-    /// AJAX çağrılarında JSON olarak transfer edilebilir.
-    /// </summary>
+   
     public class Ogrenci
     {
         public int OgrenciId { get; set; }
